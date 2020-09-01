@@ -1,0 +1,25 @@
+{
+  "name": "git-er-done-backend",
+  "version": "1.0.0",
+  "description": "This the future Javawockies back end. woo!",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bethel-school-of-technology/git-er-done-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bethel-school-of-technology/git-er-done-backend/issues"
+  },
+  "homepage": "https://github.com/bethel-school-of-technology/git-er-done-backend#readme"
+}

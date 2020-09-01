@@ -2,7 +2,7 @@ const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
-
+//makes sure port is a valid number
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -19,7 +19,7 @@ const normalizePort = val => {
 
   return false;
 };
-
+// error handeling
 const onError = error => {
   if (error.syscall !== "listen") {
     throw error;
@@ -39,15 +39,18 @@ const onError = error => {
   }
 };
 
+// logs that we are listening for incoming requests
 const onListening = () => {
   const addr = server.address();
   const bind = typeof port === "string" ? "pipe " + port : "port " + port;
   debug("Listening on " + bind);
 };
 
+//setting up the port
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
+//setting up server and executing or throwing error
 const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
