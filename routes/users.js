@@ -4,12 +4,7 @@ const User = require("../models/users")
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  User.find().then(documents => {
-    res.status(200).json({
-      message: "Users fetched went well!",
-      users: documents
-    });
-  });
+  res.render('users')
 });
 
 
