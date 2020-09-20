@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const UserSchema = mongoose.Schema({
-    username: {
-        type: String,
-        requried:true
-    },
     businessName: {
         type: String,
         required: true,
@@ -40,7 +36,19 @@ const UserSchema = mongoose.Schema({
     },
     contactZip: {
         type: Number,
-        requried: true
+        required: true
+    },
+    street: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
     },
     email: {
         type: String,
@@ -81,6 +89,9 @@ const UserSchema = mongoose.Schema({
         default: Date.now()
     }
 });
+UserSchema.associate = function(models) {
+    // associations defined here
+}
 
 // export model user with UserSchema
 module.exports = mongoose.model("User", UserSchema);
