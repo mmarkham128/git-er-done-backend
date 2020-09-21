@@ -4,7 +4,7 @@ const UserSchema = mongoose.Schema({
     businessName: {
         type: String,
         required: true,
-        allowNull: faslse
+        allowNull: false
     },
     contactFirstName: {
         type: String,
@@ -37,23 +37,6 @@ const UserSchema = mongoose.Schema({
     contactZip: {
         type: Number,
         required: true
-    },
-    street: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
     },
     password: {
         type: String,
