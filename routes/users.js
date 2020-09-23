@@ -18,7 +18,7 @@ router.post('/login', function(req, res, next) {
   models.users
     .findOne({
       where: {
-        Username: req.body.username,
+        Email: req.body.email,
         Password: req.body.password
       }
     })
