@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-
+//get a list of posts
 router.get("/api/posts", (req, res, next) => {
   Post.find().then(documents => {
     res.status(200).json({
@@ -19,6 +19,31 @@ router.get("/api/posts", (req, res, next) => {
   });
 });
 
+router.post("/api/posts", (req, res, next) => {
+  const post = new Post({
+    businessName: req.body.businessName,
+    contactFirstName: req.body.contactFirstName,
+    contactLastName: req.body.contactLastName,
+    contactMainPhoneNumber: req.body.contactMainPhoneNumber,
+    contactStreet: req.body.contactStreet,
+    contactCity: req.body.contactCity,
+    contactState: req.body.contactState,
+    contactZip: req.body.contactZip,
+    employeeFirstName: req.body.employeeFirstName,
+    employeeLastName: req.body.employeeLastName,
+    jobNotes: req.body.jobNotes,
+    employeeID: req.body.employeeID,
+    jobCompleted: req.body.jobCompleted,
+    jobDeleted: req.body.jobDeleted
+  });
+  post.save().then(createdPost => {
+    res.status(201).json({
+      message: "Post added successfully",
+      postId: createdPost._id
+    });
+  });});
+
+//get a list of users
 router.get('/api/users', function(req, res, next) {
   User.find().then(documents => {
     res.status(200).json({
@@ -27,5 +52,7 @@ router.get('/api/users', function(req, res, next) {
     });
   });
 });
+
+
 
 module.exports = router;

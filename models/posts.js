@@ -9,12 +9,12 @@ const postSchema = mongoose.Schema({
     contactCity: { type: String, required: true},
     contactState: { type: String, required: true},
     contactZip: { type: String, required: true},
-    employeeFirstName: { type: String, required: true},
-    employeeLastName: { type: String, required: true},
-    jobNotes: { type: String, required: true},
-    employeeID: { type: String, required: false},
-    jobCompleted: { type: Boolean, required: false},
-    jobDeleted: { type: Boolean, required: false},
+    employeeFirstName: { type: String, required: false, default: null },
+    employeeLastName: { type: String, required: false, default: null},
+    jobNotes: { type: String, required: true, default: null},
+    employeeID: { type: String, required: false, default: null},
+    jobCompleted: { type: Boolean, required: false, default: false},
+    jobDeleted: { type: Boolean, required: false,  default: false},
 
 });
 
