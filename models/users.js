@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const UserSchema = mongoose.Schema({
+
     email: { type: String, required: false},
     password:{ type: String, required: true},
     employeeFirstName: { type: String, required: true},
@@ -15,4 +16,6 @@ UserSchema.associate = function(models) {
     // associations defined here
 }
 // export model user with UserSchema
-module.exports = mongoose.model("User", UserSchema);
+
+module.exports = mongoose.model("user", UserSchema);
+
