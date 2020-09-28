@@ -9,4 +9,4 @@ UserSchema.associate = function(models) {
 }
 
 // export model user with UserSchema
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("user", UserSchema);
