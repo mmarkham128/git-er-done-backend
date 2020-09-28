@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const User = require("../models/users")
+var mongoose = require('mongoose');
+const UserSchema = require("../models/users");
+const user = require('../models/users')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,15 +12,19 @@ router.get('/', function(req, res, next) {
 
 // Login Page
 
+router.get('/login', function(req, res, next){
+  res.render('login')
+})
+
 router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
 router.post('/login', function(req, res, next) {
-  models.users
+  user
     .findOne({
       where: {
-        Email: req.body.email,
+        Username: req.body.username,
         Password: req.body.password
       }
     })
@@ -30,6 +36,7 @@ router.post('/login', function(req, res, next) {
       }
     });
 });
+
 
 
 router.post("/api/users", (req, res, next) => {
@@ -49,4 +56,6 @@ router.post("/api/users", (req, res, next) => {
     });
   });});
 
+
+ 
 module.exports = router;
