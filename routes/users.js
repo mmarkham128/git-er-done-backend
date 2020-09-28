@@ -5,32 +5,14 @@ const user = require('../models/users')
 var db = mongoose.connection
 
 
+
 // Login Page
 
 router.get('/login', function(req, res, next){
   res.render('login')
 })
 
-router.post('/api/users', function(req, res, next) {
-  // user
-  //   .findOne({
-  //     where: {
-  //       username: req.body.username,
-  //       password: req.body.password
-  //     }
-  //   })
-  //   .then(user => {
-  //     if (user) {
-  //       res.send('Login succeeded!');
-  //       console.log("YAYYYY");
-  //     } else {
-  //       res.send('Invalid login!');
-  //       console.log("NOOOOO");
-  //     }
-  //   });
-});
-
-// IM STOOPID   (ノಠ益ಠ)ノ彡┻━┻ 
+// IM NO LONGER STOOPID   (ノಠ益ಠ)ノ彡┻━┻ 
 
 router.post('/login', function(req,res,next) {
   db.collection('users').findOne({
@@ -70,5 +52,5 @@ router.post("/api/users", (req, res, next) => {
   });});
 
 
- 
+
 module.exports = router;
