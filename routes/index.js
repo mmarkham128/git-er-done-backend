@@ -55,7 +55,7 @@ router.get('/api/users', function(req, res, next) {
 
 
 router.post("/api/users", (req, res, next) => {
-  const post = new Post({
+  const user = new User({
     employeeFirstName: req.body.employeeFirstName,
     employeeLastName: req.body.employeeLastName,
     username: req.body.username,
