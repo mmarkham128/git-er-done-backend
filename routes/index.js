@@ -19,6 +19,8 @@ router.get("/api/posts", (req, res, next) => {
   });
 });
 
+//create a new post
+
 router.post("/api/posts", (req, res, next) => {
   const post = new Post({
     businessName: req.body.businessName,
@@ -42,6 +44,40 @@ router.post("/api/posts", (req, res, next) => {
       postId: createdPost._id
     });
   });});
+
+  // edit a specific post by id
+router.put("/api/posts/:id", (req, res, next) => {
+  const post = new Post({
+    _id: req.body.id,
+    businessName: req.body.businessName,
+    contactFirstName: req.body.contactFirstName,
+    contactLastName: req.body.contactLastName,
+    contactMainPhoneNumber: req.body.contactMainPhoneNumber,
+    contactStreet: req.body.contactStreet,
+    contactCity: req.body.contactCity,
+    contactState: req.body.contactState,
+    contactZip: req.body.contactZip,
+    employeeFirstName: req.body.employeeFirstName,
+    employeeLastName: req.body.employeeLastName,
+    jobNotes: req.body.jobNotes,
+    employeeID: req.body.employeeID,
+    jobCompleted: req.body.jobCompleted,
+    jobDeleted: req.body.jobDeleted
+  });
+  Post.updateOne({ _id: req.params.id }, post).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Update successful!" });
+  });
+});
+
+
+
+
+
+
+
+
+
 
 //get a list of users
 router.get('/api/users', function(req, res, next) {
@@ -69,6 +105,7 @@ router.post("/api/users", (req, res, next) => {
       userId: createdUser._id
     });
   });});
+
 
 router.post("/api/users", (req, res, next) => {
   const user = new User({
