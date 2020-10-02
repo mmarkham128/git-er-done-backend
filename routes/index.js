@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const querystring = require('querystring');
 const Post = require("../models/posts");
 const User = require("../models/users")
 
@@ -17,6 +18,25 @@ router.get("/api/posts", (req, res, next) => {
       posts: documents
     });
   });
+});
+
+//get all posts where job completed is true
+
+router.get('/api/posts/view', function (req,res,next){
+  let jobCompleted= req.query.jobCompleted
+  console.log(req.query.jobCompleted)
+  
+  Post.find({
+    jobCompleted: jobCompleted
+  }
+    
+  ).then( documents => {
+    res.status(200).json({
+      message: "Posts fetched succesfully!!!!!!",
+      posts: documents
+    })
+  })
+  
 });
 
 //create a new post
