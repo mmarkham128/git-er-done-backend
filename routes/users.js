@@ -15,20 +15,22 @@ router.get('/login', function(req, res, next){
 // IM NO LONGER STOOPID   (ノಠ益ಠ)ノ彡┻━┻ 
 
 router.post('/login', function(req,res,next) {
-  db.collection('users').findOne({
-          username: req.body.email,
+  user.find({
+          username: req.body.username,
           password: req.body.password
         }
       )
       .then(user => {
         if (user) {
-          res.send(user);
+          
           console.log("YAYYYY");
+          res.render('index', {user: user})
         } 
         else {
           res.send('Invalid login!');
           console.log("NOOOOO");
         }
+        
   });
 });
 

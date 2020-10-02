@@ -1,4 +1,5 @@
 var express = require('express');
+const nodemon = require('nodemon');
 var router = express.Router();
 const querystring = require('querystring');
 const Post = require("../models/posts");
