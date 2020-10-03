@@ -1,13 +1,15 @@
 const jwt = require('jsonwebtoken');
-const models = require('../models');
+const users = require('../models/users');
 const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose')
+var db = mongoose.connection
 
 var authService = {
     signUser: function(user){
         const token = jwt.sign({
-            UserName: user.userName,
-            UserId: user.UserId,
-            Admin: user.Admin
+            username: user.username,
+            id: user.id,
+            admin: user.admin
         }, 'secretkey',
         {
             expiresIn: '1h'
@@ -17,7 +19,7 @@ var authService = {
     verifyUser: function(token){
         try{
             let decoded = jwt.verify(token, 'secretkey')
-            return models.users.findByPk(decoded.UserId);
+            return db.collection('users').findOne({where:{ id: decoded.id }}) 
         }catch( err) {
             console.log(err);
             return null;
