@@ -16,31 +16,7 @@ router.get('/login', function(req, res, next){
 
 // IM NO LONGER STOOPID   (ノಠ益ಠ)ノ彡┻━┻ 
 
-router.post("/login", (req,res,next) => {
-  user.findOne({ username: req.body.username })
-  .then(user => {
-    if(!user) {
-      return res.status(401).json({
-        message: "Auth Failed"
-      });
-    }
-    return bcrypt.compare(req.body.password, user.password)
-  })
-  .then(result => {
-    if (!result){
-      return res.status(401).json({
-        message: "Auth Failed"
-      });
-    }
-    const token = jwt.sign({ username: user.username, id: user._id}, 
-      'secretkey',
-    { expiresIn: "1h" });
-  })
-  .catch(err => {
-    return res.status(401).json({
-      message: "Auth Failed"
-    })
-  })
+
 });
 
 
