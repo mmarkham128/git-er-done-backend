@@ -14,10 +14,6 @@ router.get('/login', function(req, res, next){
   res.render('login')
 })
 
-// IM NO LONGER STOOPID   (ノಠ益ಠ)ノ彡┻━┻ 
-
-
-});
 
 
 router.post("/api/users", (req, res, next) => {
