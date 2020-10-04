@@ -95,31 +95,53 @@ router.put("/api/posts/:id", (req, res, next) => {
 
 
 //patch route
-router.patch("/api/posts/:id", (req, res) => {
+// router.patch("/api/posts/:id", (req, res) => {
+//   const post = new Post({
+//     _id: id,
+//     businessName: businessName,
+//     contactFirstName: contactFirstName,
+//     contactLastName: contactLastName,
+//     contactMainPhoneNumber: contactMainPhoneNumber,
+//     contactStreet: contactStreet,
+//     contactCity: contactCity,
+//     contactState: contactState,
+//     contactZip: contactZip,
+//     employeeFirstName: employeeFirstName,
+//     employeeLastName: employeeLastName,
+//     jobNotes: jobNotes,
+//     employeeID: employeeID,
+//     jobCompleted: jobCompleted,
+//     jobDeleted: req.body.jobDeleted
+//   });
+//   Post.findOneAndUpdate({_id: req.params.id}, post).then(result => {
+//     console.log (result);
+//     res.status(200).json({ message: "Updated!"});
+//   });
+// });
+
+router.patch("/api/posts/:id", (req, res, next) => {
   const post = new Post({
-    _id: id,
-    businessName: businessName,
-    contactFirstName: contactFirstName,
-    contactLastName: contactLastName,
-    contactMainPhoneNumber: contactMainPhoneNumber,
-    contactStreet: contactStreet,
-    contactCity: contactCity,
-    contactState: contactState,
-    contactZip: contactZip,
-    employeeFirstName: employeeFirstName,
-    employeeLastName: employeeLastName,
-    jobNotes: jobNotes,
-    employeeID: employeeID,
-    jobCompleted: jobCompleted,
-    jobDeleted: req.body.jobDeleted
+    _id: req.body.id,
+    businessName: req.body.businessName,
+    contactFirstName: req.body.contactFirstName,
+    contactLastName: req.body.contactLastName,
+    contactMainPhoneNumber: req.body.contactMainPhoneNumber,
+    contactStreet: req.body.contactStreet,
+    contactCity: req.body.contactCity,
+    contactState: req.body.contactState,
+    contactZip: req.body.contactZip,
+    employeeFirstName: req.body.employeeFirstName,
+    employeeLastName: req.body.employeeLastName,
+    jobNotes: req.body.jobNotes,
+    employeeID: req.body.employeeID,
+    jobCompleted: req.body.jobCompleted,
+    jobDeleted: "true"
   });
-  Post.findOneAndUpdate({_id: req.params.id}, post).then(result => {
-    console.log (result);
-    res.status(200).json({ message: "Updated!"});
+  Post.updateOne({ _id: req.params.id }, post).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Update successful!" });
   });
 });
-
-
 
 
 
