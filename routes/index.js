@@ -94,6 +94,32 @@ router.put("/api/posts/:id", (req, res, next) => {
 });
 
 
+//patch route
+router.patch("/api/posts/:id", (req, res) => {
+  const post = new Post({
+    _id: id,
+    businessName: businessName,
+    contactFirstName: contactFirstName,
+    contactLastName: contactLastName,
+    contactMainPhoneNumber: contactMainPhoneNumber,
+    contactStreet: contactStreet,
+    contactCity: contactCity,
+    contactState: contactState,
+    contactZip: contactZip,
+    employeeFirstName: employeeFirstName,
+    employeeLastName: employeeLastName,
+    jobNotes: jobNotes,
+    employeeID: employeeID,
+    jobCompleted: jobCompleted,
+    jobDeleted: req.body.jobDeleted
+  });
+  Post.findOneAndUpdate({_id: req.params.id}, post).then(result => {
+    console.log (result);
+    res.status(200).json({ message: "Updated!"});
+  });
+});
+
+
 
 
 
