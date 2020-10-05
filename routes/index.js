@@ -94,31 +94,8 @@ router.put("/api/posts/:id", (req, res, next) => {
 });
 
 
-//patch route
-// router.patch("/api/posts/:id", (req, res) => {
-//   const post = new Post({
-//     _id: id,
-//     businessName: businessName,
-//     contactFirstName: contactFirstName,
-//     contactLastName: contactLastName,
-//     contactMainPhoneNumber: contactMainPhoneNumber,
-//     contactStreet: contactStreet,
-//     contactCity: contactCity,
-//     contactState: contactState,
-//     contactZip: contactZip,
-//     employeeFirstName: employeeFirstName,
-//     employeeLastName: employeeLastName,
-//     jobNotes: jobNotes,
-//     employeeID: employeeID,
-//     jobCompleted: jobCompleted,
-//     jobDeleted: req.body.jobDeleted
-//   });
-//   Post.findOneAndUpdate({_id: req.params.id}, post).then(result => {
-//     console.log (result);
-//     res.status(200).json({ message: "Updated!"});
-//   });
-// });
 
+//patch route to change jobDeleted from "false" to "true"
 router.patch("/api/posts/:id", (req, res, next) => {
   const post = new Post({
     _id: req.body.id,
@@ -142,8 +119,6 @@ router.get('/api/users', function(req, res, next) {
     });
   });
 });
-
-
 router.post("/api/users", (req, res, next) => {
   const user = new User({
     employeeFirstName: req.body.employeeFirstName,
@@ -163,7 +138,22 @@ router.post("/api/users", (req, res, next) => {
   });});
 
 
-
+router.post("/api/users", (req, res, next) => {
+  const user = new User({
+    employeeFirstName: req.body.employeeFirstName,
+    employeeLastName: req.body.employeeLastName,
+    username: req.body.username,
+    password: req.body.password,
+    admin: req.body.admin,
+    employeeID: req.body.employeeID,
+    id: req.body.id,
+  });
+  user.save().then(createdUser => {
+    res.status(201).json({
+      message: "User added successfully",
+      userId: createdUser._id
+    });
+  });});
 
 
 module.exports = router;
