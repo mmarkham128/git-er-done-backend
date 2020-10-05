@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator")
+
+
 const UserSchema = mongoose.Schema({
 
     employeeFirstName: { type: String, required: true},
@@ -10,10 +13,13 @@ const UserSchema = mongoose.Schema({
     password:{ type: String, required: false},
     employeeDeleted: {type: Boolean, required: false, default: false},
 });
+
+UserSchema.plugin(uniqueValidator)
+
 UserSchema.associate = function(models) {
     // associations defined here
 }
 // export model user with UserSchema
 
-module.exports = mongoose.model("user", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
 

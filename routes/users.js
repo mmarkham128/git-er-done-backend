@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-const user = require('../models/users');
+const User = require('../models/users');
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcryptjs');
 
@@ -12,26 +12,33 @@ const bcrypt = require('bcryptjs');
 
 router.get('/login', function(req, res, next){
   res.render('login')
-})
+});
 
 
-
-router.post("/api/users", (req, res, next) => {
-  const post = new Post({
-    employeeFirstName: req.body.employeeFirstName,
-    employeeLastName: req.body.employeeLastName,
-    username: req.body.username,
-    password: req.body.password,
-    admin: req.body.admin,
-    employeeID: req.body.employeeID,
-    id: req.body.id,
-  });
-  user.save().then(createdUser => {
-    res.status(201).json({
-      message: "User added successfully",
-      userId: createdUser._id
+router.post("/signup", function(req,res,next) {
+  bcrypt.hash(req.body.password, 10)
+    .then(function(hash) {
+      const user = new User ({
+      username: req.body.username,
+      password: hash,
+      employeeFirstName: req.body.employeeFirstName,
+      employeeLastName: req.body.employeeLastName,
+      employeeCellNumber: req.body.employeeCellNumber,
+      employeeID: req.body.employeeID
+      });
+      user.save(result => {
+        res.status(201).json({
+          message: "User Created",
+          result: result
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
     });
-  });});
+});
 
 
 //patch route to change employeeDeleted from "false" to "true"
