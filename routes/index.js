@@ -94,7 +94,6 @@ router.put("/api/posts/:id", (req, res, next) => {
 });
 
 
-
 //patch route to change jobDeleted from "false" to "true"
 router.patch("/api/posts/:id", (req, res, next) => {
   const post = new Post({
@@ -106,54 +105,6 @@ router.patch("/api/posts/:id", (req, res, next) => {
     res.status(200).json({ message: "Update successful!" });
   });
 });
-
-
-
-
-//get a list of users
-router.get('/api/users', function(req, res, next) {
-  User.find().then(documents => {
-    res.status(200).json({
-      message: "Users fetched went well!",
-      users: documents
-    });
-  });
-});
-router.post("/api/users", (req, res, next) => {
-  const user = new User({
-    employeeFirstName: req.body.employeeFirstName,
-    employeeLastName: req.body.employeeLastName,
-    employeeCellNumber: req.body.employeeCellNumber,
-    username: req.body.username,
-    password: req.body.password,
-    admin: req.body.admin,
-    employeeID: req.body.employeeID,
-    id: req.body.id,
-  });
-  user.save().then(createdUser => {
-    res.status(201).json({
-      message: "User added successfully",
-      userId: createdUser._id
-    });
-  });});
-
-
-router.post("/api/users", (req, res, next) => {
-  const user = new User({
-    employeeFirstName: req.body.employeeFirstName,
-    employeeLastName: req.body.employeeLastName,
-    username: req.body.username,
-    password: req.body.password,
-    admin: req.body.admin,
-    employeeID: req.body.employeeID,
-    id: req.body.id,
-  });
-  user.save().then(createdUser => {
-    res.status(201).json({
-      message: "User added successfully",
-      userId: createdUser._id
-    });
-  });});
 
 
 module.exports = router;
