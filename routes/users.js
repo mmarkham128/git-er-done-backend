@@ -41,5 +41,17 @@ router.post("/signup", function(req,res,next) {
 });
 
 
+//patch route to change employeeDeleted from "false" to "true"
+router.patch("/api/users/:id", (req, res, next) => {
+  const user = new User({
+    _id: req.body.id,
+    employeeDeleted: "true"
+  });
+  User.updateOne({ _id: req.params.id }, user).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Update successful!" });
+  });
+});
+
 
 module.exports = router;

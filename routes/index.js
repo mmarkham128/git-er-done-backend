@@ -94,7 +94,17 @@ router.put("/api/posts/:id", (req, res, next) => {
 });
 
 
-
+//patch route to change jobDeleted from "false" to "true"
+router.patch("/api/posts/:id", (req, res, next) => {
+  const post = new Post({
+    _id: req.body.id,
+    jobDeleted: "true"
+  });
+  Post.updateOne({ _id: req.params.id }, post).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Update successful!" });
+  });
+});
 
 
 module.exports = router;
