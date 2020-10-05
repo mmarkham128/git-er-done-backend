@@ -122,19 +122,6 @@ router.put("/api/posts/:id", (req, res, next) => {
 router.patch("/api/posts/:id", (req, res, next) => {
   const post = new Post({
     _id: req.body.id,
-    businessName: req.body.businessName,
-    contactFirstName: req.body.contactFirstName,
-    contactLastName: req.body.contactLastName,
-    contactMainPhoneNumber: req.body.contactMainPhoneNumber,
-    contactStreet: req.body.contactStreet,
-    contactCity: req.body.contactCity,
-    contactState: req.body.contactState,
-    contactZip: req.body.contactZip,
-    employeeFirstName: req.body.employeeFirstName,
-    employeeLastName: req.body.employeeLastName,
-    jobNotes: req.body.jobNotes,
-    employeeID: req.body.employeeID,
-    jobCompleted: req.body.jobCompleted,
     jobDeleted: "true"
   });
   Post.updateOne({ _id: req.params.id }, post).then(result => {
@@ -142,10 +129,6 @@ router.patch("/api/posts/:id", (req, res, next) => {
     res.status(200).json({ message: "Update successful!" });
   });
 });
-
-
-
-
 
 
 
