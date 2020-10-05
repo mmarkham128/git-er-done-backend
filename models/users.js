@@ -7,7 +7,8 @@ const UserSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true},
     admin: { type: Boolean, required: true},
     employeeID: { type: Number, required: true},
-    password:{ type: String, required: false}
+    password:{ type: String, required: false},
+    employeeDeleted: {type: Boolean, required: false, default: false},
 });
 UserSchema.associate = function(models) {
     // associations defined here
