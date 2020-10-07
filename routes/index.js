@@ -21,6 +21,21 @@ router.get("/api/posts", (req, res, next) => {
   });
 });
 
+// router.get('/api/posts', function(req,res) {
+//   let jobDeleted = req.query.jobDeleted
+//   console.log(req.query.jobDeleted)
+//   Post.find({
+//     jobDeleted: jobDeleted
+//   })
+//   .then(documents => {
+//     res.status(200).json({
+//       message: "All posts fetched successfully!",
+//       posts: documents
+//     })
+//   })
+//   });
+
+
 //get all posts where job completed is true
 //route that takes you to view all posts where jobCompleted is true or false, depending on the query
 router.get('/api/posts/view', function (req,res,next){
