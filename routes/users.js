@@ -25,7 +25,7 @@ router.post("/signup", function(req,res,next) {
       employeeLastName: req.body.employeeLastName,
       employeeCellNumber: req.body.employeeCellNumber,
       employeeID: req.body.employeeID,
-      employeeDeleted: req.body.employeeDeleted,
+    
       });
       user.save(result => {
         res.status(201).json({

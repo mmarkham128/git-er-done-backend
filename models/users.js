@@ -11,7 +11,6 @@ const UserSchema = mongoose.Schema({
     admin: { type: Boolean, required: true},
     employeeID: { type: Number, required: true},
     password:{ type: String, required: false},
-    employeeDeleted: {type: Boolean, required: false, default: false},
 });
 
 UserSchema.plugin(uniqueValidator)
