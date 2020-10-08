@@ -54,5 +54,12 @@ router.patch("/api/users/:id", (req, res, next) => {
   });
 });
 
-
+router.get("/api/users", (req, res, next) => {
+  User.find().then(documents => {
+    res.status(200).json({
+      message: "Users fetched successfully!",
+      users: documents
+    });
+  });
+});
 module.exports = router;
