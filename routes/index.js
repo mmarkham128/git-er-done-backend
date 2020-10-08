@@ -110,9 +110,9 @@ router.put("/api/posts/:id", (req, res, next) => {
 
 
 //patch route to change jobDeleted from "false" to "true"
-router.patch("/api/posts/:id", (req, res, next) => {
+router.delete("/api/posts/:id", (req, res, next) => {
   const post = new Post({
-    _id: req.body.id,
+    _id: req.params.id,
     jobDeleted: "true"
   });
   Post.updateOne({ _id: req.params.id }, post).then(result => {
