@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 const User = require('../models/users');
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcryptjs');
+const jtw = require('jsonwebtoken')
 
 
 
@@ -40,6 +41,40 @@ router.post("/signup", function(req,res,next) {
       });
     });
 });
+
+router.post("/login", function(req,res,next) {
+  let fetchedUser;
+  User.findOne({ username: req.body.username })
+  .then(user => {
+    if (!user) {
+      return res.status(401).json({
+        message: "Login Failed"
+      });
+    }
+    fetchedUser = user
+    return bcrypt.compare(req.body.password, user.password)
+  })
+  .then(result => {
+    if (!result) {
+      return res.status(401).json({
+        message: "Login Failed"
+      })
+    }
+    const token = jtw.sign({username: fetchedUser.username, id: fetchedUser.id}, 
+      'secretkey', 
+      {expiresIn: '1h'}
+      );
+      res.status(200).json({
+        token: token,
+        message: "Login Successful"
+      })
+  })
+  .catch(err => {
+    return res.status(401).json({
+      message: "Login Failed"
+    });
+  })
+})
 
 
 //patch route to change employeeDeleted from "false" to "true"
