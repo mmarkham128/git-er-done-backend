@@ -21,31 +21,32 @@ router.get("/api/posts", (req, res, next) => {
   });
 });
 
-// router.get('/api/posts', function(req,res) {
-//   let jobDeleted = req.query.jobDeleted
-//   console.log(req.query.jobDeleted)
-//   Post.find({
-//     jobDeleted: jobDeleted
-//   })
-//   .then(documents => {
-//     res.status(200).json({
-//       message: "All posts fetched successfully!",
-//       posts: documents
-//     })
-//   })
-//   });
+// get a post by id
+
+router.get("/api/posts/view/:id", (req, res, next) => {
+  Post.findById(req.params.id).then(post => {
+    if (post) {
+      res.status(200).json(post);
+    } else {
+      res.status(404).json({ message: "Post not found!" });
+    }
+  });
+});
+
+
 
 
 //get all posts where job completed is true
 //route that takes you to view all posts where jobCompleted is true or false, depending on the query
-router.get('/api/posts/view', function (req,res,next){
+router.get('/api/posts/viewalljobs', function (req,res,next){
   //query the portion of the DB that holds the jobCompleted info and finds either a value of true or false b/c of it being a boolean
-  let jobCompleted= req.query.jobCompleted
-  console.log(req.query.jobCompleted)
+  // let jobDeleted= req.body.jobDeleted
+  let jobDeleted= req.query.jobDeleted
+  console.log(req.query.jobDeleted)
   
   //using the Post model to find a post where jobCompleted is equal to the query of either true or false (based on the let above)
   Post.find({
-    jobCompleted: jobCompleted
+    jobDeleted: jobDeleted
   }
   
   //display will be json and display "posts fetched succesfully" on localhost 3000 and posts the information requested (depending on the true or false query)
@@ -57,6 +58,29 @@ router.get('/api/posts/view', function (req,res,next){
   })
   
 });
+
+
+//get all posts where job completed is true
+//route that takes you to view all posts where jobCompleted is true or false, depending on the query
+router.get('/api/posts/viewcompletedjobs', function (req,res,next){
+  //query the portion of the DB that holds the jobCompleted info and finds either a value of true or false b/c of it being a boolean
+  // let jobDeleted= req.body.jobDeleted
+  let jobCompleted= req.query.jobCompleted
+  console.log(req.query.jobCompleted)
+  
+  //using the Post model to find a post where jobCompleted is equal to the query of either true or false (based on the let above)
+  Post.find({
+    jobCompleted:jobCompleted
+  }
+  ).then( documents => {
+    res.status(200).json({
+      message: "Posts fetched succesfully!!!!!!",
+      posts: documents
+    })
+  })
+  
+});
+
 
 //create a new post
 router.post("/api/posts", (req, res, next) => {
