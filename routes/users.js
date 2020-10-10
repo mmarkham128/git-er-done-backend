@@ -46,6 +46,7 @@ router.post("/login", function(req,res,next) {
   let fetchedUser;
   User.findOne({ username: req.body.username })
   .then(user => {
+    console.log(user);
     if (!user) {
       return res.status(401).json({
         message: "Login Failed"
