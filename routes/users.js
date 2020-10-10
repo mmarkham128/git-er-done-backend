@@ -79,16 +79,32 @@ router.post("/login", function(req,res,next) {
 
 
 //patch route to change employeeDeleted from "false" to "true"
-// router.delete("/api/users/:id", (req, res, next) => {
-//   const user = new User({
-//     _id: req.body.id,
-//     employeeDeleted: "true"
-//   });
-//   User.updateOne({ _id: req.params.id }, user).then(result => {
-//     console.log(result);
-//     res.status(200).json({ message: "Update successful!" });
-//   });
-// });
+router.delete("/api/users/:id", (req, res, next) => {
+  const user = new User({
+    _id: req.params.id,
+    employeeDeleted: "true"
+  });
+  User.updateOne({ _id: req.params.id }, user).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Update successful!" });
+  });
+});
+
+//view employees where employee is deleted as true or false
+router.get('/api/users/viewallemployees', function (req,res,next){
+  let employeeDeleted= req.query.employeeDeleted
+  console.log(req.query.employeeDeleted)
+  User.find({
+    employeeDeleted:employeeDeleted
+  }
+  ).then( documents => {
+    res.status(200).json({
+      message: "User fetched succesfully!!!!!!",
+      users: documents
+    })
+  })
+});
+
 
 
 
@@ -100,4 +116,17 @@ router.get("/api/users", (req, res, next) => {
     });
   });
 });
+
+// get a user by id
+
+router.get("/api/users/view/:id", (req, res, next) => {
+  User.findById(req.params.id).then(user => {
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: "User not found!" });
+    }
+  });
+});
+
 module.exports = router;
