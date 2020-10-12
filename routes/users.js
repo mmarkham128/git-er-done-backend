@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 const User = require('../models/users');
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcryptjs');
-const jtw = require('jsonwebtoken')
+const jtw = require('jsonwebtoken');
+const checkAuth = require('../middleware/check-auth');
 
 
 
@@ -79,7 +80,7 @@ router.post("/login", function(req,res,next) {
 
 
 //patch route to change employeeDeleted from "false" to "true"
-router.delete("/api/users/:id", (req, res, next) => {
+router.delete("/api/users/:id", checkAuth, (req, res, next) => {
   const user = new User({
     _id: req.params.id,
     employeeDeleted: "true"
@@ -91,7 +92,7 @@ router.delete("/api/users/:id", (req, res, next) => {
 });
 
 //view employees where employee is deleted as true or false
-router.get('/api/users/viewallemployees', function (req,res,next){
+router.get('/api/users/viewallemployees', checkAuth, function (req,res,next){
   let employeeDeleted= req.query.employeeDeleted
   console.log(req.query.employeeDeleted)
   User.find({
@@ -108,7 +109,7 @@ router.get('/api/users/viewallemployees', function (req,res,next){
 
 
 
-router.get("/api/users", (req, res, next) => {
+router.get("/api/users", checkAuth, (req, res, next) => {
   User.find().then(documents => {
     res.status(200).json({
       message: "Users fetched successfully!",

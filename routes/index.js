@@ -4,6 +4,8 @@ var router = express.Router();
 const querystring = require('querystring');
 const Post = require("../models/posts");
 const User = require("../models/users")
+const checkAuth = require("../middleware/check-auth");
+const { check } = require('express-validator');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 
 //get a list of posts
-router.get("/api/posts", (req, res, next) => {
+router.get("/api/posts", checkAuth, (req, res, next) => {
   Post.find().then(documents => {
     res.status(200).json({
       message: "Posts fetched successfully!",
@@ -23,7 +25,7 @@ router.get("/api/posts", (req, res, next) => {
 
 // get a post by id
 
-router.get("/api/posts/view/:id", (req, res, next) => {
+router.get("/api/posts/view/:id", checkAuth, (req, res, next) => {
   Post.findById(req.params.id).then(post => {
     if (post) {
       res.status(200).json(post);
@@ -38,20 +40,15 @@ router.get("/api/posts/view/:id", (req, res, next) => {
 
 //get all posts where job completed is true
 //route that takes you to view all posts where jobCompleted is true or false, depending on the query
-router.get('/api/posts/viewalljobs', function (req,res,next){
-  //query the portion of the DB that holds the jobCompleted info and finds either a value of true or false b/c of it being a boolean
-  // let jobDeleted= req.body.jobDeleted
-  let jobDeleted= req.query.jobDeleted
+
+router.get('/api/posts/viewalljobs', checkAuth, function (req,res,next){
+  let jobDeleted= req.query.jobDeleted //query the portion of the DB that holds the jobCompleted info and finds either a value of true or false b/c of it being a boolean
   console.log(req.query.jobDeleted)
-  
-  //using the Post model to find a post where jobCompleted is equal to the query of either true or false (based on the let above)
-  Post.find({
-    jobDeleted: jobDeleted
-  }
-  
-  //display will be json and display "posts fetched succesfully" on localhost 3000 and posts the information requested (depending on the true or false query)
-  ).then( documents => {
-    res.status(200).json({
+  Post.find({   
+    jobDeleted: jobDeleted  //using the Post model to find a post where jobCompleted is equal to the query of either true or false (based on the let above)
+  })
+  .then( documents => {
+    res.status(200).json({   //display will be json and display "posts fetched succesfully" on localhost 3000 and posts the information requested (depending on the true or false query)
       message: "Posts fetched succesfully!!!!!!",
       posts: documents
     })
@@ -62,7 +59,7 @@ router.get('/api/posts/viewalljobs', function (req,res,next){
 
 //get all posts where job completed is true
 //route that takes you to view all posts where jobCompleted is true or false, depending on the query
-router.get('/api/posts/viewcompletedjobs', function (req,res,next){
+router.get('/api/posts/viewcompletedjobs', checkAuth, function (req,res,next){
   //query the portion of the DB that holds the jobCompleted info and finds either a value of true or false b/c of it being a boolean
   // let jobDeleted= req.body.jobDeleted
   let jobCompleted= req.query.jobCompleted
@@ -83,7 +80,7 @@ router.get('/api/posts/viewcompletedjobs', function (req,res,next){
 
 
 //create a new post
-router.post("/api/posts", (req, res, next) => {
+router.post("/api/posts", checkAuth, (req, res, next) => {
   const post = new Post({
     businessName: req.body.businessName,
     contactFirstName: req.body.contactFirstName,
@@ -108,7 +105,7 @@ router.post("/api/posts", (req, res, next) => {
   });});
 
   // edit a specific post by id
-router.put("/api/posts/:id", (req, res, next) => {
+router.put("/api/posts/:id", checkAuth, (req, res, next) => {
   const post = new Post({
     _id: req.body.id,
     businessName: req.body.businessName,
@@ -134,7 +131,7 @@ router.put("/api/posts/:id", (req, res, next) => {
 
 
 //patch route to change jobDeleted from "false" to "true"
-router.delete("/api/posts/:id", (req, res, next) => {
+router.delete("/api/posts/:id", checkAuth, (req, res, next) => {
   const post = new Post({
     _id: req.params.id,
     jobDeleted: "true"
