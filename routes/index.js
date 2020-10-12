@@ -146,4 +146,17 @@ router.delete("/api/posts/:id", (req, res, next) => {
 });
 
 
+//patch route to change jobCompleted from "false" to "true"
+router.delete("/api/posts/complete/:id", (req, res, next) => {
+  const post = new Post({
+    _id: req.params.id,
+    jobCompleted: "true"
+  });
+  Post.updateOne({ _id: req.params.id }, post).then(result => {
+    console.log(result);
+    res.status(200).json({ message: "Update successful!" });
+  });
+});
+
+
 module.exports = router;

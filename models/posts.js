@@ -11,7 +11,7 @@ const postSchema = mongoose.Schema({
     contactZip: { type: String, required: true},
     employeeFirstName: { type: String, required: false, default: null },
     employeeLastName: { type: String, required: false, default: null},
-    jobNotes: { type: String, required: true, default: null},
+    jobNotes: { type: String, required: true},
     employeeID: { type: String, required: false, default: null},
     jobCompleted: { type: Boolean, required: false, default: false},
     jobDeleted: { type: Boolean, required: false,  default: false},
